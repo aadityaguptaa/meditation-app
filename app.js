@@ -5,11 +5,11 @@ const app = ()=>{
     const timeDisplay = document.querySelector('.time-display');
     const sounds = document.querySelectorAll('.sound-picker button');
     const timeSelect = document.querySelectorAll('.time-select button');
-    let fakeDuration = 6;
+    let fakeDuration = 600;
     const video = document.querySelector('.vid-container video');
     const outlineLength = outline.getTotalLength();
     console.log(outlineLength);
-
+    timeDisplay.innerHTML=`${Math.floor(fakeDuration/60)}:00`
     outline.style.strokeDasharray = outlineLength;
     outline.style.strokeDashoffset = outlineLength;
 
@@ -17,7 +17,10 @@ const app = ()=>{
         option.addEventListener('click', function () {
             song.src = this.getAttribute('data-sound');
             video.src = this.getAttribute('data-video');
-            checkplay();
+            song.currentTime = 0;
+            song.pause();
+            video.pause();
+            play.src = './svg/play.svg';
         });
     });
 
@@ -30,6 +33,11 @@ const app = ()=>{
         option.addEventListener('click', function () {
             fakeDuration = this.getAttribute('data-time');
             timeDisplay.textContent = `${Math.floor(fakeDuration/60)}:00`
+            song.currentTime = 0;
+            song.pause();
+            video.pause();
+            play.src = './svg/play.svg'
+
         })
     });
 
